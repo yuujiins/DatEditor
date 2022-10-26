@@ -113,6 +113,54 @@ namespace DatEditor
             #endregion
         }
 
+        private void InitializeComponent(string filename)
+        {
+            this.components = new System.ComponentModel.Container();
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.WindowState = FormWindowState.Maximized;
+
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(SpreadsheetForm));
+            #region Spreadsheet
+
+            spreadsheet = new Spreadsheet();
+            SpreadsheetRibbon ribbon = new SpreadsheetRibbon() { Spreadsheet = spreadsheet };
+            ToolStripTabItem loadFileItem = new ToolStripTabItem();
+            ToolStripButton exportButton = new ToolStripButton();
+            ToolStripEx tx = new ToolStripEx();
+            exportButton.Text = "Export/Save";
+            exportButton.Image = Resources.export_512;
+            exportButton.Click += ExportDat;
+            tx.Text = "Exporting";
+            loadFileItem.Panel.Controls.AddRange(new Control[] {
+                tx
+            });
+            tx.Items.AddRange(new ToolStripItem[]
+            {
+                exportButton
+            });
+            loadFileItem.Text = "EXPORT";
+            ribbon.Header.AddMainItem(loadFileItem);
+            this.DataBindings.Add("Text", this.spreadsheet, "FileName");
+            spreadsheet.Dock = DockStyle.Fill;
+            spreadsheet.Anchor = AnchorStyles.Left | AnchorStyles.Top;
+            spreadsheet.DefaultColumnCount = 16384;
+            spreadsheet.DefaultRowCount = 1048576;
+            spreadsheet.AllowFiltering = true;
+            spreadsheet.Open(filename);
+
+
+            GridControl grid = new GridControl();
+            grid.Dock = DockStyle.Fill;
+            grid.VScrollPixel = true;
+            grid.HScrollPixel = true;
+            grid.Controls.Add(spreadsheet);
+            grid.Controls.Add(ribbon);
+            this.Controls.Add(grid);
+
+            this.Icon = Resources.pencil_white;
+            #endregion
+        }
+
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();

@@ -16,8 +16,25 @@ namespace DatEditor
 
         public Editor(string file)
         {
-            DatFile = new FileStream(file, FileMode.Open, FileAccess.Read);
-            EditDatFile(file);
+            string fileExt = Path.GetExtension(file);
+            switch (fileExt)
+            {
+                case ".xlsx":
+                case ".xls":
+                case ".csv":
+                case ".xlsm":
+                            {
+                                Application.Run(new SpreadsheetForm(file));
+                                break;
+                            }
+                default:
+                        {
+                            DatFile = new FileStream(file, FileMode.Open, FileAccess.Read);
+                            EditDatFile(file);
+                            break;
+                        }
+                    
+            }
         }
         private void EditDatFile(string fileName)
         {
