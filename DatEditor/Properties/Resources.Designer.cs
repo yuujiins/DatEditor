@@ -99,5 +99,15 @@ namespace DatEditor.Properties {
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Icon similar to (Icon).
+        /// </summary>
+        internal static System.Drawing.Icon pencil_white {
+            get {
+                object obj = ResourceManager.GetObject("pencil_white", resourceCulture);
+                return ((System.Drawing.Icon)(obj));
+            }
+        }
     }
 }

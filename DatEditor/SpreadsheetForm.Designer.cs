@@ -64,7 +64,61 @@ namespace DatEditor
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.WindowState = FormWindowState.Maximized;
             this.fileName = fileName;
+            this.Text = fileName;
+            this.Icon = Resources.pencil_white;
             
+            
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(SpreadsheetForm));
+            #region Spreadsheet
+
+            spreadsheet = new Spreadsheet();
+            SpreadsheetRibbon ribbon = new SpreadsheetRibbon() { Spreadsheet = spreadsheet };
+            ToolStripTabItem loadFileItem = new ToolStripTabItem();
+            ToolStripButton exportButton = new ToolStripButton();
+            ToolStripEx tx = new ToolStripEx();
+            exportButton.Text = "Export/Save";
+            exportButton.Image = Resources.export_512;
+            exportButton.Click += ExportDat;
+            tx.Text = "Exporting";
+            loadFileItem.Panel.Controls.AddRange(new Control[] {
+                tx
+            });
+            tx.Items.AddRange(new ToolStripItem[]
+            {
+                exportButton
+            });
+            loadFileItem.Text = "EXPORT";
+            ribbon.Header.AddMainItem(loadFileItem);
+            this.DataBindings.Add("Text", this.spreadsheet, "FileName");
+            
+            spreadsheet.Dock = DockStyle.Fill;
+            spreadsheet.Anchor = AnchorStyles.Left | AnchorStyles.Top;
+            spreadsheet.DefaultColumnCount = 16384;
+            spreadsheet.DefaultRowCount = 1048576;
+            spreadsheet.AllowFiltering = true;
+            spreadsheet.Create(1);
+            spreadsheet.FileName = fileName;
+            spreadsheet.ActiveSheet.ImportDataTable(dt, true, 1, 1, true);
+            spreadsheet.ActiveGrid.InvalidateCells();
+            
+
+            GridControl grid = new GridControl();
+            grid.Dock = DockStyle.Fill;
+            grid.VScrollPixel = true;
+            grid.HScrollPixel = true;
+            grid.Controls.Add(spreadsheet);
+            grid.Controls.Add(ribbon);
+            this.Controls.Add(grid);
+            
+            #endregion
+        }
+
+        private void InitializeComponent()
+        {
+            this.components = new System.ComponentModel.Container();
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.WindowState = FormWindowState.Maximized;
+
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(SpreadsheetForm));
             #region Spreadsheet
 
@@ -89,13 +143,10 @@ namespace DatEditor
             this.DataBindings.Add("Text", this.spreadsheet, "FileName");
             spreadsheet.Dock = DockStyle.Fill;
             spreadsheet.Anchor = AnchorStyles.Left | AnchorStyles.Top;
-            spreadsheet.DefaultColumnCount = dt.Columns.Count + 1;
-            spreadsheet.DefaultRowCount = dt.Rows.Count + 2;
+            spreadsheet.DefaultColumnCount = 16384;
+            spreadsheet.DefaultRowCount = 1048576;
             spreadsheet.AllowFiltering = true;
-            spreadsheet.Create(1);
-            spreadsheet.FileName = fileName;
-            spreadsheet.ActiveSheet.ImportDataTable(dt, true, 1, 1, true);
-            
+
 
             GridControl grid = new GridControl();
             grid.Dock = DockStyle.Fill;
@@ -104,8 +155,8 @@ namespace DatEditor
             grid.Controls.Add(spreadsheet);
             grid.Controls.Add(ribbon);
             this.Controls.Add(grid);
-            
-            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+
+            this.Icon = Resources.pencil_white;
             #endregion
         }
 
@@ -128,8 +179,7 @@ namespace DatEditor
         {
             DataTable dt = spreadsheet.Workbook.Worksheets[0].ExportDataTable(spreadsheet.Workbook.Worksheets[0].UsedRange, Syncfusion.XlsIO.ExcelExportDataTableOptions.ColumnNames);
             StreamWriter file = new StreamWriter(saveFileDialog.OpenFile());
-            
-            int ctr = 0;
+
             string line = "";
             for(int i = 0; i < dt.Rows.Count + 1; i++)
             {

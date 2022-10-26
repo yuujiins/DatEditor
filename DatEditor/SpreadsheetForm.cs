@@ -27,5 +27,9 @@ namespace DatEditor
         {
             InitializeComponent(dt, fileName);
         }
+        public SpreadsheetForm()
+        {
+            InitializeComponent();
+        }
     }
 }

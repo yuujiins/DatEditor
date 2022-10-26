@@ -1,6 +1,8 @@
-﻿using Syncfusion.Windows.Forms.Spreadsheet;
+﻿using DatEditor.Properties;
+using Syncfusion.Windows.Forms.Spreadsheet;
 using Syncfusion.WinForms.Controls;
 using Syncfusion.XlsIO;
+using Syncfusion.XlsIO.Parser.Biff_Records;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -8,6 +10,7 @@ using System.Data;
 using System.Drawing;
 using System.Drawing.Text;
 using System.IO;
+using System.Runtime.ConstrainedExecution;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Windows.Forms;
@@ -35,6 +38,7 @@ namespace DatEditor
             this.Style.TitleBar.Font = this.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Style.TitleBar.TextHorizontalAlignment = HorizontalAlignment.Center;
             this.Style.TitleBar.TextVerticalAlignment = System.Windows.Forms.VisualStyles.VerticalAlignment.Center;
+            this.Icon = Resources.pencil_white;
         }
 
         private void BtnOpenFile_Click(object sender, EventArgs e)
@@ -47,27 +51,20 @@ namespace DatEditor
             LFile.Text = DFileChooser.FileName;
         }
 
-        private void BtnEdit_Click(object sender, EventArgs e)
+        private void EditDatFile(string fileName)
         {
             int ctr = 0;
             DataTable dt = new DataTable();
-            try
-            {
-                DatFile = new FileStream(DFileChooser.FileName, FileMode.Open, FileAccess.Read);
-            }catch(ArgumentException ex)
-            {
-                MessageBox.Show(ex.Message);
-            }
-
-            using(StreamReader reader = new StreamReader(DatFile, Encoding.UTF8))
+            using (StreamReader reader = new StreamReader(DatFile, Encoding.UTF8))
             {
                 while (!reader.EndOfStream)
                 {
-                    string currentLine = Regex.Replace(reader.ReadLine(), "[^\u0000-\u007F]", String.Empty);
-                    string[] data = currentLine.Split('\u0014');
-                    if(ctr == 0)
+                    string currentLine = reader.ReadLine();
+                    string currentLineFormatted = Regex.Replace(currentLine, "[^\u0000-\u007F]", String.Empty);
+                    string[] data = currentLineFormatted.Split('\u0014');
+                    if (ctr == 0)
                     {
-                        foreach(var col in data)
+                        foreach (var col in data)
                         {
                             dt.Columns.Add(col);
                         }
@@ -80,10 +77,27 @@ namespace DatEditor
                 }
             }
 
-            SpreadsheetForm form = new SpreadsheetForm(dt, DFileChooser.SafeFileName);
+            SpreadsheetForm form = new SpreadsheetForm(dt, Path.GetFileNameWithoutExtension(fileName));
             form.Show();
-            
+        }
 
+        private void BtnEdit_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                DatFile = new FileStream(DFileChooser.FileName, FileMode.Open, FileAccess.Read);
+            }
+            catch (ArgumentException ex)
+            {
+                MessageBox.Show(ex.Message);
+                return;
+            }
+            EditDatFile(DFileChooser.SafeFileName);
+        }
+
+        private void BtnBlank_Click(object sender, EventArgs e)
+        {
+            new SpreadsheetForm().Show();
         }
     }
 }
