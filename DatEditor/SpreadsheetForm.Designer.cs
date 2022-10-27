@@ -102,13 +102,9 @@ namespace DatEditor
             spreadsheet.ActiveGrid.InvalidateCells();
             
 
-            GridControl grid = new GridControl();
-            grid.Dock = DockStyle.Fill;
-            grid.VScrollPixel = true;
-            grid.HScrollPixel = true;
-            grid.Controls.Add(spreadsheet);
-            grid.Controls.Add(ribbon);
-            this.Controls.Add(grid);
+            
+            this.Controls.Add(spreadsheet);
+            this.Controls.Add(ribbon);
             
             #endregion
         }
@@ -149,13 +145,8 @@ namespace DatEditor
             spreadsheet.Open(filename);
 
 
-            GridControl grid = new GridControl();
-            grid.Dock = DockStyle.Fill;
-            grid.VScrollPixel = true;
-            grid.HScrollPixel = true;
-            grid.Controls.Add(spreadsheet);
-            grid.Controls.Add(ribbon);
-            this.Controls.Add(grid);
+            this.Controls.Add(spreadsheet);
+            this.Controls.Add(ribbon);
 
             this.Icon = Resources.pencil_white;
             #endregion
@@ -196,13 +187,8 @@ namespace DatEditor
             spreadsheet.AllowFiltering = true;
 
 
-            GridControl grid = new GridControl();
-            grid.Dock = DockStyle.Fill;
-            grid.VScrollPixel = true;
-            grid.HScrollPixel = true;
-            grid.Controls.Add(spreadsheet);
-            grid.Controls.Add(ribbon);
-            this.Controls.Add(grid);
+            this.Controls.Add(spreadsheet);
+            this.Controls.Add(ribbon);
 
             this.Icon = Resources.pencil_white;
             #endregion
