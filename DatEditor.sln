@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DatEditor", "DatEditor\DatE
 EndProject
 Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "DatEditor v1", "Setup\Setup.vdproj", "{84528DC2-6B57-4B95-8F64-A43F8E5A2A77}"
 EndProject
+Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "DatEditor V1.0.1", "DatEditor V1.0.1\DatEditor V1.0.1.vdproj", "{FF4F6C2A-07EA-4489-9D5C-10AB354E7671}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -36,6 +38,12 @@ Global
 		{84528DC2-6B57-4B95-8F64-A43F8E5A2A77}.Release|x64.Build.0 = Release
 		{84528DC2-6B57-4B95-8F64-A43F8E5A2A77}.x64|Any CPU.ActiveCfg = Debug
 		{84528DC2-6B57-4B95-8F64-A43F8E5A2A77}.x64|x64.ActiveCfg = Debug
+		{FF4F6C2A-07EA-4489-9D5C-10AB354E7671}.Debug|Any CPU.ActiveCfg = Debug
+		{FF4F6C2A-07EA-4489-9D5C-10AB354E7671}.Debug|x64.ActiveCfg = Debug
+		{FF4F6C2A-07EA-4489-9D5C-10AB354E7671}.Release|Any CPU.ActiveCfg = Release
+		{FF4F6C2A-07EA-4489-9D5C-10AB354E7671}.Release|x64.ActiveCfg = Release
+		{FF4F6C2A-07EA-4489-9D5C-10AB354E7671}.x64|Any CPU.ActiveCfg = Debug
+		{FF4F6C2A-07EA-4489-9D5C-10AB354E7671}.x64|x64.ActiveCfg = Debug
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

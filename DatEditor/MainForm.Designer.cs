@@ -115,9 +115,10 @@
             this.MaximizeBox = false;
             this.MaximumSize = new System.Drawing.Size(589, 341);
             this.Name = "MainForm";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Style.MdiChild.IconHorizontalAlignment = System.Windows.Forms.HorizontalAlignment.Center;
             this.Style.MdiChild.IconVerticalAlignment = System.Windows.Forms.VisualStyles.VerticalAlignment.Center;
-            this.Text = "DatEditor v1.0.0";
+            this.Text = "DatEditor v1.0.1";
             this.panel1.ResumeLayout(false);
             this.ResumeLayout(false);
 

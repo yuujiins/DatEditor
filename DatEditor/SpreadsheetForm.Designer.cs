@@ -93,16 +93,15 @@ namespace DatEditor
             
             spreadsheet.Dock = DockStyle.Fill;
             spreadsheet.Anchor = AnchorStyles.Left | AnchorStyles.Top;
-            spreadsheet.DefaultColumnCount = 16384;
+            spreadsheet.DefaultColumnCount = dt.Columns.Count + 5;
             spreadsheet.DefaultRowCount = 1048576;
             spreadsheet.AllowFiltering = true;
             spreadsheet.Create(1);
             spreadsheet.FileName = fileName;
             spreadsheet.ActiveSheet.ImportDataTable(dt, true, 1, 1, true);
             spreadsheet.ActiveGrid.InvalidateCells();
-            
+            this.KeyPreview = true;
 
-            
             this.Controls.Add(spreadsheet);
             this.Controls.Add(ribbon);
             
@@ -114,7 +113,7 @@ namespace DatEditor
             this.components = new System.ComponentModel.Container();
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.WindowState = FormWindowState.Maximized;
-
+            this.Icon = Resources.pencil_white;
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(SpreadsheetForm));
             #region Spreadsheet
 
@@ -143,12 +142,13 @@ namespace DatEditor
             spreadsheet.DefaultRowCount = 1048576;
             spreadsheet.AllowFiltering = true;
             spreadsheet.Open(filename);
+            this.KeyPreview = true;
+            
 
 
             this.Controls.Add(spreadsheet);
             this.Controls.Add(ribbon);
 
-            this.Icon = Resources.pencil_white;
             #endregion
         }
 
@@ -157,6 +157,7 @@ namespace DatEditor
             this.components = new System.ComponentModel.Container();
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.WindowState = FormWindowState.Maximized;
+            this.Icon = Resources.pencil_white;
 
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(SpreadsheetForm));
             #region Spreadsheet
@@ -185,14 +186,16 @@ namespace DatEditor
             spreadsheet.DefaultColumnCount = 16384;
             spreadsheet.DefaultRowCount = 1048576;
             spreadsheet.AllowFiltering = true;
+            this.KeyPreview = true;
+            
 
 
             this.Controls.Add(spreadsheet);
             this.Controls.Add(ribbon);
-
-            this.Icon = Resources.pencil_white;
             #endregion
         }
+
+        
 
         void spreadsheet_WorkbookLoaded(object sender, WorkbookLoadedEventArgs args)
         {
